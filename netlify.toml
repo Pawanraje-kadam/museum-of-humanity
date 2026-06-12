@@ -1,0 +1,15 @@
+[build]
+  # This tells Netlify how to compile your Vite/React project
+  command = "npm run build"
+  # This tells Netlify which folder contains the final, compiled website
+  publish = "dist"
+
+[functions]
+  # This tells Netlify where to look for your serverless backend code
+  directory = "netlify/functions"
+
+[[redirects]]
+  # This creates a seamless, secure proxy for our API calls
+  from = "/api/*"
+  to = "/.netlify/functions/:splat"
+  status = 200

@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <!-- Primary SEO -->
+    <title>Museum of Humanity | Interactive Archive</title>
+    <meta name="description" content="An interactive, React-powered archaeological data-pad analyzing the extinct human species. Built with Vite and the Gemini API." />
+
+    <!-- Open Graph / LinkedIn / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Museum of Humanity | Interactive Archive" />
+    <meta property="og:description" content="An interactive, React-powered archaeological data-pad analyzing the extinct human species." />
+    <!-- Ensure you place a screenshot named og-image.png in your /public folder -->
+    <meta property="og:image" content="/og-image.png" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Museum of Humanity | Interactive Archive" />
+    <meta name="twitter:description" content="An interactive, React-powered archaeological data-pad analyzing the extinct human species." />
+    <meta name="twitter:image" content="/og-image.png" />
+
+    <!-- Preconnect & Preload Fonts (FOUT Prevention) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  </head>
+  
+  <!-- Global Body Styles Applied Before React Mounts -->
+  <body class="bg-void text-amber font-mono overflow-x-hidden antialiased selection:bg-amber selection:text-void">
+    
+    <!-- React Mounting Target -->
+    <div id="root"></div>
+    
+    <!-- Vite Module Loader -->
+    <script type="module" src="/src/main.jsx"></script>
+    
+  </body>
+</html>

@@ -1,0 +1,28 @@
+# Dependencies
+node_modules
+.pnp
+.pnp.js
+
+# Build Output
+dist
+build
+
+# Environment Variables (CRITICAL: Do not commit your API keys)
+.env
+.env.local
+.env.*.local
+
+# IDE & OS Files
+.DS_Store
+.vscode
+.idea
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
