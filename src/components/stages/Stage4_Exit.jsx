@@ -17,7 +17,7 @@ const Stage4_Exit = () => {
       {/* Action Links: The actual conversion point for recruiters */}
       <address className="flex space-x-6 text-sm tracking-widest text-amber not-italic">
         <a 
-          href="https://github.com/yourusername/museum-of-humanity" 
+          href="https://github.com/Pawanraje-kadam/museum-of-humanity" 
           target="_blank" 
           rel="noopener noreferrer"
           aria-label="View GitHub Repository"
