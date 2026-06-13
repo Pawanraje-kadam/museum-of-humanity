@@ -1,48 +1,56 @@
+import { GoogleGenerativeAI, HarmCategory, HarmBlockThreshold } from '@google/generative-ai';
+
 export const handler = async (event) => {
-  // 1. Security check: Only allow POST requests
   if (event.httpMethod !== 'POST') {
     return { statusCode: 405, body: 'Method Not Allowed' };
   }
 
   try {
-    // 2. Parse the user's input from the frontend request
-    const { term } = JSON.parse(event.body);
-    
-    // 3. Securely access the API key from Netlify's environment variables
+    const body = JSON.parse(event.body);
+    const term = body.term || "Unknown Concept";
+
     const apiKey = process.env.GEMINI_API_KEY;
+    if (!apiKey) throw new Error("API Key missing");
 
-    if (!apiKey) {
-      return { statusCode: 500, body: JSON.stringify({ error: "Missing API Key" }) };
-    }
+    const genAI = new GoogleGenerativeAI(apiKey);
 
-    // 4. The Strict Narrative Prompt (Prompt Engineering)
-    // This forces the AI to stay in character and prevents hallucinations.
-    const systemPrompt = `You are Archivist-Prime, a diagnostic AI from the year 1,000,000 CE. Humanity is extinct. Analyze the concept: "${term}". Rule 1: Profoundly misunderstand its purpose through a cold, literal sci-fi lens. Rule 2: No explicit jokes; humor comes from your deadpan misunderstanding. Rule 3: Maximum 2 short sentences. Rule 4: Do not use the phrase 'As an AI'.`;
+    // 1. Lower safety filters so the AI doesn't block sci-fi concepts
+    const safetySettings = [
+      { category: HarmCategory.HARM_CATEGORY_HARASSMENT, threshold: HarmBlockThreshold.BLOCK_NONE },
+      { category: HarmCategory.HARM_CATEGORY_HATE_SPEECH, threshold: HarmBlockThreshold.BLOCK_NONE },
+      { category: HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT, threshold: HarmBlockThreshold.BLOCK_NONE },
+      { category: HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT, threshold: HarmBlockThreshold.BLOCK_NONE },
+    ];
 
-    // 5. Fetch request to the Google Gemini API endpoint
-    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        contents: [{ parts: [{ text: systemPrompt }] }]
-      })
+    const model = genAI.getGenerativeModel({ 
+      model: 'gemini-1.5-flash',
+      safetySettings 
     });
 
-    // 6. Parse the response from Gemini
-    const data = await response.json();
-    const generatedText = data.candidates[0].content.parts[0].text;
+    const prompt = `Act as an alien archivist from the year 1,000,000 CE. You are analyzing a digital artifact from the extinct human species. The human concept to analyze is: "${term}". Write a 2-3 sentence clinical, slightly misunderstood, and highly dramatic analysis of this concept. Do not use any markdown formatting, asterisks, or quotes in your response. Just plain text.`;
 
-    // 7. Send the successful response back to our React frontend
+    const result = await model.generateContent(prompt);
+
+    // 2. Bulletproof text extraction (prevents the '0' error crash)
+    let analysisText = "";
+    try {
+      analysisText = result.response.text();
+    } catch (err) {
+      // If Google still blocks the response, we send a cool sci-fi error instead of crashing
+      analysisText = "[ARCHIVE CORRUPTION DETECTED: This human concept triggered severe alien safety protocols. Data expunged.]";
+    }
+
     return {
       statusCode: 200,
-      body: JSON.stringify({ analysis: generatedText })
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ analysis: analysisText }),
     };
 
   } catch (error) {
-    // 8. Graceful Error Handling
+    console.error('API Error:', error);
     return {
       statusCode: 500,
-      body: JSON.stringify({ error: "Synthesis Failed", details: error.message })
+      body: JSON.stringify({ error: 'Synthesis Failed', details: error.message }),
     };
   }
 };
