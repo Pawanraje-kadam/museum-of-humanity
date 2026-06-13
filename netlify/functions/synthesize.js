@@ -22,10 +22,10 @@ export const handler = async (event) => {
       { category: HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT, threshold: HarmBlockThreshold.BLOCK_NONE },
     ];
 
-    const model = genAI.getGenerativeModel({ 
-      model: 'gemini-1.5-flash',
-      safetySettings 
-    });
+const model = genAI.getGenerativeModel({ 
+  model: 'gemini-pro',
+  safetySettings 
+});
 
     const prompt = `Act as an alien archivist from the year 1,000,000 CE. You are analyzing a digital artifact from the extinct human species. The human concept to analyze is: "${term}". Write a 2-3 sentence clinical, slightly misunderstood, and highly dramatic analysis of this concept. Do not use any markdown formatting, asterisks, or quotes in your response. Just plain text.`;
 
