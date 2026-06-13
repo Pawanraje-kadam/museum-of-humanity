@@ -10,7 +10,7 @@ const Stage4_Exit = () => {
           Museum of Humanity
         </h1>
         <p className="font-serif text-human/60 mt-4 italic text-lg">
-          Engineered by [Your Name]
+          Engineered by Pawanraje
         </p>
       </div>
 
