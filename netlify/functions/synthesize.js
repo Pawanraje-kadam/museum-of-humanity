@@ -11,7 +11,7 @@ export const handler = async (event) => {
     if (!apiKey) throw new Error("API Key missing");
 
     // We bypass the NPM package entirely and hit Google's master endpoint directly
-    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
+   const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash:generateContent?key=${apiKey}`;
 
     const payload = {
       contents: [{
