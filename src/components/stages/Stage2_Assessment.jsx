@@ -40,7 +40,7 @@ const Stage2_Assessment = () => {
   const handleAnalysisComplete = () => {
     setTimeout(() => {
       advanceState(APP_STATES.TWIST);
-    }, 3000);
+    }, 9000);
   };
 
   return (
