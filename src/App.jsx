@@ -64,7 +64,8 @@ const NarrativeController = () => {
 export default function App() {
   return (
     <NarrativeProvider>
-      <NarrativeController />
-    </NarrativeProvider>
+  <SoundController />
+  <NarrativeController />
+</NarrativeProvider>
   );
 }
