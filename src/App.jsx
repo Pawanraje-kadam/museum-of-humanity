@@ -10,6 +10,31 @@ import Stage2_Assessment from './components/stages/Stage2_Assessment';
 import Stage3_Twist from './components/stages/Stage3_Twist';
 import Stage4_Exit from './components/stages/Stage4_Exit';
 
+const SoundController = () => {
+  const bgRef = useRef(null);
+
+  useEffect(() => {
+    bgRef.current = new Audio('/bg-sound.mp3');
+
+    bgRef.current.loop = true;
+    bgRef.current.volume = 0.15;
+
+    const startAudio = () => {
+      bgRef.current.play().catch(() => {});
+      window.removeEventListener('click', startAudio);
+    };
+
+    window.addEventListener('click', startAudio);
+
+    return () => {
+      window.removeEventListener('click', startAudio);
+      bgRef.current?.pause();
+    };
+  }, []);
+
+  return null;
+};
+
 // Inner component that consumes the NarrativeContext
 const NarrativeController = () => {
   const { appState, toggleCmdK } = useNarrative();
