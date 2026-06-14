@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { NarrativeProvider, useNarrative, APP_STATES } from './context/NarrativeContext';
 import DataPad from './components/layout/DataPad';
 import { useKeyPress } from './hooks/useKeyPress';
