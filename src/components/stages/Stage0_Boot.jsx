@@ -13,7 +13,9 @@ useEffect(() => {
   typingRef.current.loop = true;
   typingRef.current.volume = 0.25;
 
-  typingRef.current.play().catch(() => {});
+setTimeout(() => {
+  typingRef.current?.play().catch(err => console.log(err));
+}, 1000);
 
   return () => {
     typingRef.current?.pause();
