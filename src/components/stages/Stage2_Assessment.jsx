@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { useNarrative, APP_STATES } from '../../context/NarrativeContext';
 import Typewriter from '../ui/Typewriter';
 
