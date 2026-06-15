@@ -4,7 +4,7 @@ import Typewriter from '../ui/Typewriter';
 
 const Stage0_Boot = () => {
   const { advanceState } = useNarrative();
-  
+  const typingRef = useRef(null);
   // Local state controls the cinematic pacing of the text lines
   const [step, setStep] = useState(1);
 
