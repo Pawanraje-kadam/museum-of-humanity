@@ -7,7 +7,19 @@ const Stage0_Boot = () => {
   const typingRef = useRef(null);
   // Local state controls the cinematic pacing of the text lines
   const [step, setStep] = useState(1);
+useEffect(() => {
+  typingRef.current = new Audio('/typing-track.mp3');
 
+  typingRef.current.loop = true;
+  typingRef.current.volume = 0.25;
+
+  typingRef.current.play().catch(() => {});
+
+  return () => {
+    typingRef.current?.pause();
+    typingRef.current = null;
+  };
+}, []);
   return (
     <div className="flex h-[80vh] flex-col items-start justify-center space-y-4 pt-20">
       
