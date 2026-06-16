@@ -1,3 +1,4 @@
+console.log("Has key?", !!process.env.GROQ_API_KEY);
 export const handler = async (event) => {
   if (event.httpMethod !== 'POST') {
     return {
